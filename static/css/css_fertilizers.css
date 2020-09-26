@@ -1,0 +1,55 @@
+.card1{
+    background-color: #ffffff80;
+   margin-left: 200px;
+   margin-top: 100px;
+   padding: 10px;
+}
+
+#nav1{
+    color: red;
+    font-weight: bolder;
+    margin: 30px;
+    font-size: 30px;
+}
+
+#nav2{
+    color: darkred;
+    font-weight: bolder;
+    margin: 30px;
+    font-size: 30px;
+}
+
+a:hover{
+    background-color:orange;
+}
+
+#chat{
+  padding-bottom: 15px;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: #ffffff80;
+  height: 600px;
+  width: 350px;
+  margin-top: -40%;
+  margin-left: 65%;
+  position: absolute;
+}
+
+  #chat_btn{
+    width: auto;
+    font-weight: bold;
+    height: 50px;
+    background-color: #ffa500;
+    color: red;
+  }
+  
+  #prf{
+    background-color: #ffffff80;
+    margin-top: 20px;
+    margin-left: 80%;
+    padding: 5px;
+    width: 260px;
+    height: auto;
+    position: absolute;
+  }

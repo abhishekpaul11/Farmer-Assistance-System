@@ -1,0 +1,246 @@
+body {
+  background-image: url('background.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  box-sizing: border-box;
+}
+
+input[type=text]{
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+  .radio-toolbar input[type="radio"] {
+    opacity: 0;
+    position: fixed;
+    width: 0;
+  }
+  
+  .radio-toolbar label {
+      display: inline-block;
+      background-color: white;
+      padding: 10px 20px;
+      font-family: sans-serif, Arial;
+      font-size: 20px;
+      border: 2px solid black;
+      border-radius: 4px;
+  }
+  
+  .radio-toolbar label:hover {
+    background-color: yellow;
+  }
+  
+  .radio-toolbar input[type="radio"]:focus + label {
+      border: 2px solid darkgreen;
+  }
+  
+  .radio-toolbar input[type="radio"]:checked + label {
+      background-color: green;
+  }  
+
+
+  .styled-checkbox {
+    position: absolute;
+    opacity: 0;
+    padding: 5px;
+  }
+
+  .styled-checkbox + label {
+    position: absolute;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .styled-checkbox + label:before {
+    content: '';
+    border: 2px black solid;
+    display: inline-block;
+    vertical-align: text-top;
+    width: 50px;
+    height: 50px;
+    background: white;
+  }
+
+  .styled-checkbox:hover + label:before {
+    background-color: yellow;
+  }
+  
+  .styled-checkbox:focus + label:before {
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
+  }
+
+  .styled-checkbox:checked + label:before {
+    background:url('check.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
+  
+
+input[type="checkbox"]{
+  width: 32px;
+  height: 32px;
+}
+
+
+
+#txt{
+  margin-left: 250px;
+  color:red;
+  font-size: 100px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* Set a style for all buttons */
+#update {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  /*margin: 8px 0;*/
+  margin-right: auto;
+  margin-right: auto;
+  border: none;
+  cursor: pointer;
+  width: 20%;
+  text-align: center;
+}
+
+p{
+  font-size: 25px;
+
+  margin-top: 5px;
+}
+
+/*.container{
+  display: flex;
+}*/
+
+/* Add a hover effect for buttons */
+#update:hover {
+  opacity: 0.8;
+}
+
+.open-button {
+  background-color: orange;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  font-size: x-large;
+  width :20%;
+  font-weight: bold;
+  margin-top: 600px;
+  margin-left: 35px;
+}
+
+.open-button:hover{
+  background-color: darkorange;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 156px;
+  left:30px;
+  border: 2px solid black;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: #ffffffab;
+}
+
+/* Full-width input fields */
+.form-container input[type=text] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #ffa50080;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus {
+  background-color: #ffa500;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+#nav1{
+    color: red;
+    font-weight: bolder;
+    margin: 30px;
+    font-size: 30px;
+}
+
+#nav2{
+    color: darkred;
+    font-weight: bolder;
+    margin: 30px;
+    font-size: 30px;
+}
+
+a:hover{
+    background-color:orange;
+}
+
+#chat{
+  padding-bottom: 8px;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: #ffffff80;
+  height: auto;
+  width: 350px;
+  margin-top: -22.5%;
+  margin-left: 65%;
+}
+
+#chat_btn{
+  width: auto;
+  font-weight: bold;
+  height: 50px;
+  background-color: #ffa500;
+  color: red;
+}
+
+#prf{
+  background-color: #ffffff80;
+  margin-top: 20px;
+  margin-left: 80%;
+  padding: 5px;
+  width: 260px;
+  height: auto;
+  position: absolute;
+}

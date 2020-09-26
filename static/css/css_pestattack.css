@@ -1,0 +1,33 @@
+body {
+  background-image: url('background.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  box-sizing: border-box;
+}
+
+
+#nav1{
+    color: red;
+    font-weight: bolder;
+    margin: 30px;
+    font-size: xx-large;
+}
+
+#nav2{
+    color: darkred;
+    font-weight: bolder;
+    margin: 30px;
+    font-size: xx-large;
+}
+
+a:hover{
+    background-color:orange;
+}
+
+#googleMap{
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 500px;
+}

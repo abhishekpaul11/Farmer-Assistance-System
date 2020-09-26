@@ -1,0 +1,369 @@
+body {
+    background-image: url('background.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    box-sizing: border-box;
+}
+  
+  .tg  {
+    width: 80%;
+    height: auto;
+    margin-left: 110px;
+  }
+  
+  .tg td{
+    font-family:Arial, sans-serif;
+    font-size:25px;
+    padding:10px 5px;
+    border-style:solid;
+    border-width:2px;
+    border-color:black;
+    text-align: center;
+  }
+  .tg th{
+    font-family:Arial, sans-serif;
+    font-size:30px;
+    background-color: #ffa500;
+    font-weight:bold;
+    padding:10px 5px;
+    border-style:solid;
+    border-width:2px;
+    border-color:black;
+  }
+  
+  .tg .tg-0lax{
+    text-align:center;
+    vertical-align:top;
+  }
+  
+  #parent{
+    padding-top: 10px;
+    padding-bottom: 30px;
+    position: absolute;
+    width :80%;
+    margin-top: 20px;
+    margin-left: 160px;
+    height: auto;
+    background-color: #ffffff80;
+    color: black;
+    font-size: 40px;
+  }
+  
+  #t1 tr{background-color: #ffa50080;}
+  
+  #t1 tr:hover {background-color: #ffa500;}
+
+  #nav1{
+    color: red;
+    font-weight: bolder;
+    margin: 30px;
+    font-size: 30px;
+}
+
+#nav2{
+    color: darkred;
+    font-weight: bolder;
+    margin: 30px;
+    font-size: 30px;
+}
+
+a:hover{
+    background-color:orange;
+}
+
+#chat{
+  padding-bottom: 8px;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: #ffffff80;
+  height: 600px;
+  width: 350px;
+  margin-top: -40%;
+  margin-left: 65%;
+  position: absolute;
+}
+
+#chat_btn{
+  width: auto;
+  font-weight: bold;
+  height: 50px;
+  background-color: #ffa500;
+  color: red;
+}
+
+#prf{
+  background-color: #ffffff80;
+  margin-top: -219px;
+  margin-left: 80%;
+  padding: 5px;
+  width: 260px;
+  height: auto;
+  position: absolute;
+}
+
+/* Bordered form */
+form {
+  background-color: #ffffff80;
+  margin-top: 20px;
+  margin-left: 20%;
+  margin-right: 30px;
+  margin-bottom: 30px;
+  padding-top: 8px;
+  padding-right: 30px;
+  padding-left: 30px;
+  padding-bottom: 8px;
+  width: 60%;
+}
+
+/* Full-width inputs */
+input[type=text], input[type=text]{
+  width: 60%;
+  padding: 12px 8px;
+  margin-left: 40px;
+  margin-top: auto;
+  border: 2px solid #000000;
+  box-sizing: border-box;
+}
+
+input[type=number], input[type=number]{
+  width: 60%;
+  padding: 12px 8px;
+  margin-left: 40px;
+  margin-top: auto;
+  border: 2px solid #000000;
+  box-sizing: border-box;
+}
+
+#dropdown{
+  width: 60%;
+  padding: 12px 8px;
+  margin-left: 40px;
+  margin-top: auto;
+  border: 2px solid #000000;
+  box-sizing: border-box;
+}
+
+.radio-toolbar input[type="radio"] {
+  opacity: 0;
+  position: fixed;
+  width: 0;
+}
+
+.radio-toolbar label {
+    display: inline-block;
+    background-color: white;
+    padding: 10px 20px;
+    font-family: sans-serif, Arial;
+    font-size: 20px;
+    border: 2px solid black;
+    border-radius: 4px;
+}
+
+.radio-toolbar label:hover {
+  background-color: yellow;
+}
+
+.radio-toolbar input[type="radio"]:focus + label {
+    border: 2px solid darkgreen;
+}
+
+.radio-toolbar input[type="radio"]:checked + label {
+    background-color: lightgreen;
+}  
+
+.custom-select{
+    width: 100%;
+    background-color: white;
+}
+
+/* Set a style for all buttons */
+#back {
+  background-color: blue;
+  color: white;
+  padding: 14px 20px;
+  margin-bottom: 8px;
+  border: none;
+  cursor: pointer;
+  width: 40%;
+}
+
+#register{
+  background-color: green;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  cursor: pointer;
+  width: 40%;
+}
+
+p{
+  font-size: 35px;
+}
+
+/* Add a hover effect for buttons */
+#back:hover {
+  opacity: 0.8;
+}
+#register:hover{
+  opacity: 0.8;
+}
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+#msg{
+  background-color: #ffffff80;
+  width: 30%;
+  margin-top: 35px;
+  margin-left: 33%;
+  padding: 10px;
+}
+
+#change{
+  background-color: #ffffff80;
+  width: 24%;
+  margin-top: 35px;
+  margin-left: 37%;
+  padding-left: 30px;
+  padding-bottom: 10px;
+  padding-right: 30px;
+}
+
+#change_btn{
+  margin-top: 15px;
+  width: 35%;
+  height: 35px;
+}
+
+#buyers_list{
+  background-color: #00000000;
+  padding: 2.5%;
+  width: 80%;
+  height: auto;
+  margin-top: 30px;
+  margin-left: 10%;
+}
+
+/* Float four columns side by side */
+.column {
+  float: left;
+  width: 100%;
+  padding: 0 10px;
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {margin: 0 -5px;}
+
+/* Style the counter cards */
+.card {
+  box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.4);
+  padding: 16px;
+  text-align: left;
+  margin: 10px;
+  margin-right: 10px;
+  height: auto;
+  width: 98%;
+  background-color: #6699ff80;
+}
+
+.textAreaColumn{
+  width:100%; 
+  resize: none;
+  border: none; 
+  align-self: center;  
+}
+.textAreaColumn div{
+  float:left;
+  padding: 10px;
+  resize: none;
+  border: none;   
+}
+
+#name_txt{
+  resize: none;
+  border: none;
+  text-align: center;
+  font-size: xx-large;
+  vertical-align: middle;
+  font-weight: bold;
+  height: 150px;
+  width: 200px;
+  padding: 30px 0;
+  background-color: #6699ff00;
+}
+
+#phone_txt{
+  resize: none;
+  border: none;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 21px;
+  font-weight: bold;
+  height: 150px;
+  width: 140px;
+  padding: 30px 0;
+  background-color: #6699ff00;
+}
+
+#add_txt{
+  resize: none;
+  border: none;
+  text-align: center;
+  font-size: large;
+  vertical-align: middle;
+  font-weight: bold;
+  height: 150px;
+  width: 140px;
+  padding: 30px 0;
+  background-color: #6699ff00;
+}
+
+#btn{
+    margin-top: 15px;
+    width: 35%;
+    height: 45px;
+    margin-left: 100px;
+    color: white;
+    border: none;
+}
