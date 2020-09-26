@@ -1,0 +1,311 @@
+from flask import Flask, flash, redirect, render_template, request, session, abort , url_for,jsonify,Response,session,request,g
+from flask_socketio import SocketIO
+import time,glob,random,sqlite3,os,requests
+from Messanger import main
+from googletrans import Translator
+
+app = Flask(__name__)
+app.secret_key=os.urandom(24)
+socketio = SocketIO(app)
+t=Translator()
+@app.route('/',methods=['POST','GET'])
+def login():
+	if request.method=='GET':
+		if g.user:
+			return redirect(url_for('oindex'))
+		else:
+			return render_template('login.html')
+			
+	if request.method=='POST':
+		session.pop('user',None)
+		if request.form['pass']==check(request.form['user']):
+			session['user']=request.form['user']
+			return redirect(url_for('oindex'))
+	return render_template('login.html')
+
+@app.route("/reg",methods=['GET','POST'])
+def reg():
+	if(request.method=='GET'):
+		return render_template('register.html')
+	if(request.method=='POST'):
+		u=request.form['user']
+		p=request.form['pass']
+		n=request.form['num']
+		s=request.form['state']
+		l=request.form['lang']
+		cr=request.form.getlist('crop')
+		#print(c[0])
+		print("INSERT INTO profile (user,num,state,lang,pass) VALUES('"+u+"','"+n+"','"+s+"','"+l+"','"+p+"')")
+		conn = sqlite3.connect('data.db') 
+		c=conn.cursor()
+		h=(c.execute("SELECT user FROM profile WHERE user = ?", (u,))).fetchall()
+		if len(h)!=0 or len(n)!=10:
+			return redirect(url_for('reg',a="false"))
+		else:
+			c.execute("INSERT INTO profile (User,Num,State,Lang,Pass) VALUES('"+u+"','"+n+"','"+s+"','"+l+"','"+p+"')")
+			for o in cr:
+				c.execute("INSERT INTO crop (User,Crop) VALUES('"+u+"','"+o+"')")
+			conn.commit()
+			c.close()	
+	return redirect(url_for('login'))	
+		
+
+
+@app.route("/oindex")
+def oindex():
+	if g.user:
+		conn = sqlite3.connect('data.db') 
+		c=conn.cursor()
+		p=(c.execute("SELECT State FROM profile WHERE user = ?", (g.user,))).fetchall()
+		print(str(p[0])[2:-3])
+		h=(c.execute("SELECT * FROM predicted_price WHERE State = ?", (str(p[0])[2:-3],))).fetchall()
+		print(h)
+		return render_template('index.html',user=g.user,cr=h)
+	return redirect(url_for('login'))
+
+@app.before_request
+def before():
+	g.user=None
+	if 'user' in session:
+		g.user=session['user']
+	
+
+@app.route("/update")
+def update():
+	r=random.randint(1,1000)
+	return jsonify(r=r)
+
+@app.route("/profile",methods=['POST','GET'])
+def prof():
+	if g.user:
+		if request.method=='GET':
+			conn = sqlite3.connect('data.db')
+			c=conn.cursor()
+			lr=c.execute("SELECT * FROM login where user=?",(g.user,))
+			return render_template('updateprofile.html',item=lr.fetchall(),user=g.user)
+		#if request.method=='POST':
+			
+	return redirect(url_for('login'))
+
+@app.route("/pest")
+def pest():
+	return render_template('pestattack.html')
+
+@app.route("/loanRate")
+def loan():
+	if g.user:
+		conn = sqlite3.connect('data.db')
+		c=conn.cursor()
+		lr=c.execute("SELECT * FROM loan")
+		print(g.user)
+		#c.close()
+		return render_template('banks.html',item=lr.fetchall(),user=g.user)
+	return redirect(url_for('login'))
+
+@app.route("/logout")
+def out():
+	session.pop('user',None)
+	return redirect(url_for('login'))
+
+@app.route("/ecomm")
+def ecomm():
+	conn = sqlite3.connect('e_com.db')
+	c=conn.cursor()
+	lr=c.execute("SELECT * FROM LISTINGS")
+	#c.close()
+	#return render_template('loan.html',item=lr.fetchall())
+	return render_template('e_com.html',data=lr.fetchall(),user=g.user)
+@app.route("/order")
+def order():
+	if g.user:
+		return render_template("orders.html")
+	else:
+		return redirect(url_for('login'))
+
+@app.route("/add/<id>")
+def add(id):
+	op=random.uniform(0,99999.0)
+	data=id.split(" ")
+	conn = sqlite3.connect('e_com.db')
+	c=conn.cursor()
+	c.execute("CREATE TABLE IF NOT EXISTS LISTINGS(Region TEXT,Quantity TEXT,Price TEXT,Id TEXT)")
+	c.execute("INSERT INTO LISTINGS VALUES('{}','{}','{}','{}')".format(data[0],data[1],data[2],str(op)))
+	print(c.execute("SELECT * FROM LISTINGS").fetchall())
+	
+	conn.commit()
+	conn.close()
+	return jsonify(res="success")
+
+@app.route("/del/<id>")
+def delete(id):
+	print(id)
+	conn = sqlite3.connect('e_com.db')
+	c=conn.cursor()
+	id=str(id)
+	c.execute("DELETE FROM LISTINGS where Id='{}'".format(id))
+	print(c.execute("SELECT * FROM LISTINGS").fetchall())
+	
+	conn.commit()
+	conn.close()
+	#return render_template('loan.html',item=lr.fetchall())
+	#return render_template('e_com.html',data=lr.fetchall())
+	r="ok"
+	return jsonify(res=r)
+
+@app.route("/upd/<data>",methods=['POST'])
+def upd(data):
+	print(data)
+	return jsonify(data=1)	
+
+@app.route("/updu/<data>",methods=['POST'])
+def updu(data):
+	print(data)
+	return jsonify(data=1)	
+
+def check(k):
+	conn = sqlite3.connect('data.db')
+	c=conn.cursor()
+	lr=c.execute("SELECT Pass FROM profile where User=?",(k,))
+	h=(lr.fetchall())
+	print(h)
+	if len(h)==1:
+		lr=c.execute("SELECT Lang FROM profile where User=?",(k,))
+		
+		session['lan']=(lr.fetchall())[0][0]
+		print(session['lan'])
+		return h[0][0]
+	#print(len(h))
+	#if(lr.fetchall()[0][0]):
+	#return h
+	return redirect(url_for('login'))
+
+@app.route('/getd/<data>')
+def getd(data):
+    page=data
+    print(page)
+    print("HELLO")
+    api_key = "a9170a3ab84748cc681f9fe929b19808"
+    name=str(page)
+    x=name.split('*')
+    conn = sqlite3.connect('data.db')
+    c=conn.cursor()
+    lr=c.execute("SELECT State FROM profile where User=?",(x[0],))
+    h=(lr.fetchall())
+    base_url = "http://api.openweathermap.org/data/2.5/weather?"
+    aa=name[2:]
+    choi=name[0:1]
+    l=[]
+    result=""
+    if "*" in page:
+        print(str(h[0])[2:-3]+'*'+x[1])
+        main(str(h[0])[2:-3]+'*'+x[1])
+        exit()
+    elif(choi=="1"):    
+        city_name =aa
+  
+
+        complete_url = base_url + "appid=" + api_key + "&q=" + city_name 
+      
+        response = requests.get(complete_url) 
+        x = response.json() 
+      
+   
+        if x["cod"] != "404": 
+      
+ 
+             y = x["main"] 
+      
+ 
+             current_temperature = y["temp"] 
+      
+
+             current_pressure = y["pressure"] 
+      
+ 
+             current_humidiy = y["humidity"] 
+      
+
+             z = x["weather"] 
+      
+ 
+             weather_description = z[0]["description"] 
+      
+ 
+             l=[str(current_temperature-273),str(current_pressure),str(current_humidiy), str(weather_description)]
+             result="\nTemperature= "+str(current_temperature-273)+" Current Pressure= "+str(current_pressure)+" Humidity= "+str(current_humidiy)+" Weather description= "+str(weather_description)
+      
+        else: 
+             l=[" City Not Found "]
+             result="City Not Found"
+    elif(choi=='2'):
+         
+        pestname=aa
+        list=[["Algicides","Algae"],["algaecides","Algae"],["Avicides","Birds"],
+              ["Bactericides","Bacteria"],["Fungicides","Fungi"],["Herbicides","Plant"],
+              ["Insecticides","Insects"],["Miticides","Mites"],["Molluscicides","Snails"],
+              ["Nematicides","Nematodes"],["Rodenticides","Rodents"],["Slimicides","Algae/Bacteria/Fungi/Slime molds"],
+              ["Virucides","Viruses"]]
+        for i in range(len(list)):
+          if(pestname.casefold() in list[i][1].casefold()):
+            l=["Chitty suggests you to use ",list[i][0]," as the pesticite."]
+            result="Chitty suggests you to use "+list[i][0]+" as the pesticide."
+
+            break
+          else:
+              l=["Pest not found"]
+              result="Pest not found"
+    elif(choi=='3'):
+        fert=aa
+        li=[["cotton","N: 89.55kg/ha, P2O5: 22.6kg/ha, K2O: 4.8kg/ha"],
+            ["groundnut","N: 24.4kg/ha, P2O5: 39.3kg/ha, K2O: 12.9kg/ha"],
+            ["Jute","N: 38kg/ha, P2O5: 11.5kg/ha, K2O: 5kg/ha"],
+            ["Maize","N: 41.7kg/ha, P2O5: 14.7kg/ha, K2O: 3.8kg/ha"],
+            ["Paddy","N: 81.7kg/ha, P2O5: 24.3kg/ha, K2O: 13.1kg/ha"],
+            ["Wheat","N: 99.6kg/ha, P2O5: 30.2kg/ha, K2O: 6.9kg/ha"],
+            ["Sugarcane","N: 124.8kg/ha, P2O5: 44kg/ha, K2O: 38.3kg/ha"],
+            ["Pearl millet","N: 21.9kg/ha, P2O5: 5.5kg/ha, K2O: 0.8kg/ha"]]
+        for i in range(len(li)):
+          if(fert.casefold() in li[i][0].casefold()):
+            l=["Chitty suggests you to use ",li[i][1]," as the fertlizer."]
+            result="Chitty suggests you to use "+li[i][1]+" as the fertlizer."
+          
+            break
+          else:
+              l=["Crop not found"]
+              result="Crop not found"
+    else:
+        l=["Invalid input"]
+        
+    print(l)
+    print(result)
+    return jsonify(r=result)
+
+@app.route("/chat")
+def chat():
+	return render_template('session.html',user=g.user)
+
+def messageReceived(methods=['GET', 'POST']):
+    print('message was received!!!')
+
+@socketio.on('my event')
+def handle_my_custom_event(json, methods=['GET', 'POST']):
+    
+    print(session['lan'])
+    if session['lan']=="Hindi":
+     la="hi"
+    if session['lan']=="Bengali":
+     la="bn"
+    if session['lan']=="Marathi":
+     la="mr"
+    if session['lan']=="Tamil":
+     la="ta"
+    if session['lan']=="Punjabi":
+     la="pa"
+    if session['lan']=="English":
+     la="en"
+    json['message']=t.translate(json.get('message'),dest=la).text
+    print('received my event: ' + str(json.get('message')))
+    socketio.emit('my response', json, callback=messageReceived)
+
+if __name__ == "__main__":
+    app.run(debug = True)
