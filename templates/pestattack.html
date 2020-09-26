@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="static/css/css_pestattack.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-warning navbar-dark justify-content-center">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/oindex"><text id="nav1">HOME</text></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/fert"><text id="nav1">FERTILIZERS</text></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/pest"><text id="nav1">PESTICIDES</text></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="pestattack.html" target="_self"><text id="nav2">PEST-ATTACK</text></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/xloanRate"><text id="nav1">LOANS</text></a>
+        </li>
+      </ul>
+    </nav>
+  <div id="googleMap">
+  <script>
+	function myMap() {
+		var mapProp= {
+			center:new google.maps.LatLng(28.7041, 77.1025),
+	  		zoom:5,
+			};
+	var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+  var marker1 = new google.maps.LatLng(28.7041,77.1025);
+  var marker = new google.maps.Marker({position: marker1});
+  marker.setMap(map);
+	}
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDeQbYPlVEYFSbdJfsDofKG90tr7hECJDc&callback=myMap"
+    async defer></script>
+</div>
+</body>
+</html>

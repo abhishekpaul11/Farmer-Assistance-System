@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="css_fertilizers.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    </head>
+    <style>
+        body {
+          background-image: url('background.jpg');
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-size: cover;
+        }
+    </style>
+    <nav class="navbar navbar-expand-sm bg-warning navbar-dark justify-content-center">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#"><text id="nav1">HOME</text></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="fertilizers.html" target="_self"><text id="nav2">FERTILIZERS</text></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="pesticides.html"><text id="nav1">PESTICIDES</text></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><text id="nav1">PEST-ATTACK</text></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="banks.html"><text id="nav1">LOANS</text></a>
+        </li>
+      </ul>
+    </nav>
+    {%for k in items%}  
+    <div class="card1" style="width:226px">
+      <div class="card-body">
+          <h4 class="card-title">{{}}</h4>
+          <p class="card-text">{{}}</p>
+          <a href="#" class="btn btn-primary">Details</a>
+      </div>
+  </div>
+    {%endfor%}
+</html>

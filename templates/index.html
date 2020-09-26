@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/static/css/css_homepage.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min. css">
+</head>
+  
+<div id="parent">
+  <table class="tg" id="t1">
+     <tr>
+       <th class="tg-0lax">Crop</th>
+       <th class="tg-0lax">Predicted Price</th>
+    <tr>
+    {% for k in cr%}
+	<tr>
+	  <td>{{k[1]}}</td>
+	  {% if k[3]=="Increased":%}
+		<td><b><font color="green">{{k[2]}}</font></b>&#8679;</td>
+	  {%else:%}
+		<td><b><font color="red">{{k[2]}}</font></b>&#8681;</td>
+	  {%endif%}
+	</tr>
+    {%endfor%}
+  </table>
+</div>
+<body>
+<!-- A grey horizontal navbar that becomes vertical on small screens -->
+    <nav class="navbar navbar-expand-sm bg-warning navbar-dark justify-content-center">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/oindex" target="_self"><text id="nav2">HOME</text></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/fert"><text id="nav1">FERTILIZERS</text></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/pest"><text id="nav1">PESTICIDES</text></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="pestattack.html"><text id="nav1">PEST-ATTACK</text></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="loanRate"><text id="nav1">LOANS</text></a>
+        </li>
+        <li>
+          <input type="image" src="/static/profile.png" width="50" height="50" style="position: relative;margin-top: 8px;margin-left: 30px;" onclick="profile()"> 
+        </li>
+      </ul>
+    </nav>
+    <div id="prf" style="display: none;">
+      <button id="chat_btn" style="width:100%;font-size: larger;" onclick="location.href='/profile'">UPDATE</button><br>
+      <button id="chat_btn" style="width:100%;margin-top: 5px;font-size: larger;" onclick="location.href='/logout'">SIGN OUT</button>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>
+    
+    <script>
+      var disp=0,prfnum=0;
+      var div,text,area,x=0;
+      function profile(){
+        if(prfnum==0) prfnum=1;
+        else prfnum=0;
+        if(prfnum==1){
+          document.getElementById("prf").style.display="block";
+        }
+        else{
+          document.getElementById("prf").style.display="none";
+        }
+      }
+      function myFunction() {
+        a=document.getElementById("txt");
+        area = document.getElementById("text");
+        if(disp==0) disp=1;
+        else disp=0;
+        if(disp==1){
+          div = document.getElementById("chat").style.display="block";
+          text = "Hello I am your friend Chitty! I am here to help you.\nPress  WEATHER for weather info.\nPress PESTICIDES on pest attack.\nPress FERTILIZERS for related assistance.\n";
+          a.value=text;
+        }
+        else{
+          div = document.getElementById("chat").style.display="none";
+          a.value="";
+          area.value="";
+        }
+      }
+      function weather(){
+        x=1;
+        area.value+="Enter the city below.\n";
+        area.scrollTo(0,outerHeight);
+        
+      }
+      function pesticides(){
+        x=2;
+        area.value+="Enter the pest.\n";
+        area.scrollTo(0,outerHeight);
+      }
+      function fertilizers(){
+        x=3;
+        area.value+="Enter your crop.\n";
+        area.scrollTo(0,outerHeight);
+      }
+      function pr( k)
+      {
+      
+         area.value+=k;
+         area.value+='\n';
+         document.getElementById("inpu").value="";
+      }
+    var t;
+    function print()
+    {
+       t=x+" "+document.getElementById("inpu").value;
+      console.log(t);
+      
+
+    }
+    $(function(){
+      $('#in').bind('click',function(){
+      $.getJSON('/getd/'+t,function(data){pr(data.r)});
+      
+      });
+    });
+  
+    
+  
+  
+    
+
+ 
+  </script>
+  <button class="open-button" onclick="openForm()">REPORT A BUG</button>
+  <input type="image" src="/static/chatbot.png" width="100" height="100" style="margin-left: 90%;margin-top: -10%;position: relative;" onclick="myFunction()"> 
+  <div class="form-popup" id="myForm">
+  <form method="GET" class="form-container">
+    <label for="pest" style="font-size: x-large;"><b>PEST TYPE:</b></label>
+    <input id="pest" autocomplete="off" type="text" placeholder="Enter the type of Pest" name="pest" style="font-weight: bold;">
+    <button type="button" class="btn" onclick="closeForm()" style="font-size: large;" id="bug"><b>SUBMIT</b></button>
+    <button type="button" class="btn cancel" onclick="closeForm()" style="font-size: large"><b>CLOSE</b></button>
+  </form>
+  </div>
+  <div id="chat" style="display: none;">
+    <textarea readonly id="txt" style="width: 320px;height: 175px;resize: none;background-color: #ffa500;font-size: larger;padding-top: 5px;padding-left: 5px;padding-right: 5px;padding-bottom: 0px;font-weight: bold;"></textarea>
+    <textarea readonly id="text" style="width: 320px;height: 290px;overflow-y: scroll;resize: none;background-color: #ffa500;font-size: larger;padding-top: 0px;padding-left: 5px;padding-right: 5px;padding-bottom: 5px;"></textarea>
+    <button type="submit" id="chat_btn" style="margin-left: 2px;" onclick="weather()">WEATHER</button>
+    <button id="chat_btn" onclick="pesticides()">PESTICIDES</button>
+    <button id="chat_btn" onclick="fertilizers()">FERTILIZERS</button><br>
+    
+    <input id="inpu" autocomplete="off" type="text" placeholder="Type a message" name="name" style="width: 265px;height: 45px;background-color: #ffa500;margin-top:5px;font-weight: bold;font-size: larger;padding: 5px;position: absolute;">
+    <input type="image" id="in" src="/static/send.png" width="45" height="45" style="position: relative;margin-left: 270px;margin-top: 5px;" onclick="print()">
+ 
+
+    </input>
+     </div>
+  <script>
+    var g;
+    function openForm(){
+      document.getElementById("myForm").style.display = "block";
+    }
+    $(function(){
+      $('#bug').bind('click',function(){
+      $.getJSON('/getd/'+g);
+      
+      });
+    });
+    function closeForm() {
+       g="{{user}}*"+document.getElementById("pest").value;
+
+      document.getElementById("myForm").style.display = "none";
+      document.getElementById("pest").value="";
+
+    }
+
+  </script>
+  
+</body>
+</html>

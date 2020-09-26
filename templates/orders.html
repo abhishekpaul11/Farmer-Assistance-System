@@ -1,0 +1,97 @@
+<html>
+<head>
+    <link rel="stylesheet" href="/static/css/orders.css">
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-database.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min. css">
+</head>
+
+    
+<body>
+    <nav class="navbar navbar-expand-sm bg-warning navbar-dark justify-content-center">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="oindex" target="_self"><text id="nav1">HOME</text></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="fert"><text id="nav1">FERTILIZERS</text></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="pest"><text id="nav1">PESTICIDES</text></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="pestattack.html"><text id="nav1">PEST-ATTACK</text></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/loanRate"><text id="nav1">LOANS</text></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/ecomm" target="_self"><text id="nav2">E-COM</text></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/order" target="_self"><text id="nav2">ORDERS</text></a>
+          </li>
+
+          <li>
+            <input type="image" src="profile.png" width="50" height="50" style="position: relative;margin-top: 8px;margin-left: 30px;" onclick="profile()"> 
+          </li>
+        </ul>
+      </nav>
+      <div class="card" id="card">
+        <div class="container">
+         <textarea readonly id="username"></textarea>
+         <textarea readonly id="address"></textarea>
+         <textarea readonly id="phn"></textarea>
+         <textarea readonly id="crop"></textarea>
+         <textarea readonly id="quantity"></textarea>
+         <textarea readonly id="price"></textarea>
+        </div>
+      </div>
+      <script>
+        var firebaseConfig = {
+    apiKey: "AIzaSyCfnlahZ-Q4lJghejUhMN8_vDaZJqzLnls",
+    authDomain: "esr2019-60534.firebaseapp.com",
+    databaseURL: "https://esr2019-60534.firebaseio.com",
+    projectId: "esr2019-60534",
+    storageBucket: "esr2019-60534.appspot.com",
+    messagingSenderId: "178084983052",
+    appId: "1:178084983052:web:09535dde3f8a2b0c225929"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+        const userDataRef = firebase.database().ref().child("seller").child("farm_id").child("arnold");
+          userDataRef.child("username").on('value',snap =>
+          document.getElementById("username").value=snap.val());
+          
+        const userDataRe = firebase.database().ref().child("seller").child("farm_id").child("arnold");
+          userDataRe.child("address").on('value',snap =>
+          document.getElementById("address").value=snap.val());
+        
+          const userDataR = firebase.database().ref().child("seller").child("farm_id").child("arnold");
+          userDataR.child("price").on('value',snap =>
+          document.getElementById("price").value=snap.val());
+          
+        const userData = firebase.database().ref().child("seller").child("farm_id").child("arnold");
+          userData.child("quantity").on('value',snap =>
+          document.getElementById("quantity").value=snap.val());
+          
+        const userDa = firebase.database().ref().child("seller").child("farm_id").child("arnold");
+          userDa.child("phn").on('value',snap =>
+          document.getElementById("phn").value=snap.val());
+          
+        const userDat = firebase.database().ref().child("seller").child("farm_id").child("arnold");
+          userDat.child("crop").on('value',snap =>
+          document.getElementById("crop").value=snap.val());
+
+        
+      
+ 
+ 
+        
+  </script>
+</body>

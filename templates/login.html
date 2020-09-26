@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="static/css/css_login.css">
+    <text id="txt">FARMERS' FRIEND</text>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<style>
+    body {
+      background-image: url('background.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+</style>
+<form method="post">
+    <div class="container">
+      <label for="uname">
+          <p style="color:black"><b>Username</b></p>
+      </label>
+      <input style="font-size: large;" type="text" placeholder="Enter Username" name="user" required>
+  
+      <label for="psw"><p><b>Password</b></p></label>
+      <input style="font-size: large;" type="password" placeholder="Enter Password" name="pass" required>
+    </div>
+    <center><button type="submit" id="login" style="margin-left: 31px;"><text style="font-size: medium;"><b>LOGIN</b></text></button><br>
+    <a href="/reg"><b>REGISTER</b></text></a></center>
+</form>
+
+</html>

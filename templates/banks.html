@@ -1,0 +1,142 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/css/css_banks.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    </head>
+    <style>
+        body {
+          background-image: url('background.jpg');
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-size: cover;
+        }
+    </style>
+    <nav class="navbar navbar-expand-sm bg-warning navbar-dark justify-content-center">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/oindex"><text id="nav1">HOME</text></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/fert"><text id="nav1">FERTILIZERS</text></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/pest"><text id="nav1">PESTICIDES</text></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><text id="nav1">PEST-ATTACK</text></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/loanRate" target="_self"><text id="nav2">LOANS</text></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/ecomm" target="_self"><text id="nav1">E-COM</text></a>
+        </li>
+        <li>
+          <input type="image" src="profile.png" width="50" height="50" style="position: relative;margin-top: 8px;margin-left: 30px;" onclick="profile()"> 
+        </li>
+      </ul>
+    </nav>
+    <div id="prf" style="display: none;">
+      <button id="chat_btn" style="width:100%;font-size: larger;" onclick="location.href='/profile'">UPDATE</button><br>
+      <button id="chat_btn" style="width:100%;margin-top: 5px;font-size: larger;" onclick="location.href='/logout'">SIGN OUT</button>
+    </div>
+    <script>
+      var prfnum=0;
+      function profile(){
+        if(prfnum==0) prfnum=1;
+        else prfnum=0;
+        if(prfnum==1){
+          document.getElementById("prf").style.display="block";
+        }
+        else{
+          document.getElementById("prf").style.display="none";
+        }
+      }
+      var disp=0;
+      var div,text,area,x=0,name;
+      function myFunction() {
+        a=document.getElementById("txt");
+        area = document.getElementById("text");
+        if(disp==0) disp=1;
+        else disp=0;
+        if(disp==1){
+          div = document.getElementById("chat").style.display="block";
+          text = "Hello I am your friend Chitty! I am here to help you.\nPress  WEATHER for weather info.\nPress PESTICIDES on pest attack.\nPress FERTILIZERS for related assistance.\n";
+          a.value=text;
+        }
+        else{
+          div = document.getElementById("chat").style.display="none";
+          a.value="";
+          area.value="";
+        }
+      }
+      function weather(){
+        x=1;
+        area.value+="Enter the city below.\n";
+        area.scrollTo(0,outerHeight);
+      }
+      function pesticides(){
+        x=2;
+        area.value+="Enter the pest.\n";
+        area.scrollTo(0,outerHeight);
+      }
+      function fertilizers(){
+        x=3;
+        area.value+="Enter your crop.\n";
+        area.scrollTo(0,outerHeight);
+      }
+      function msg(){
+      var dat = x+" "+document.getElementById("input").value;
+      area.value+=document.getElementById("input").value+"\n";
+      document.getElementById("input").value="";
+      $('button#btn').click(function(){
+        $.ajax({
+            url: "/_get_data",
+            type: "POST",
+            data: dat,
+            success: function(resp){
+                $('div#response').append(resp.data);
+            }
+          });
+        });
+      }
+    </script>
+      {% set i=[0] %}
+    <table>
+    {%for k in item%}  
+    {% if i[0]==0 %}
+    <tr>
+    {%endif%}
+    <td><table aria-colcount="3">
+    <div class="card1" style="width:226px">
+        
+        <div class="card-body">
+            <h4 class="card-title">{{k[0]}}</h4>
+            <p class="card-text">{{k[1]}}</p>
+            <p class="card-text">{{k[2]}}</p>
+            <a href="#" class="btn btn-primary">Details</a>
+        </div>
+    </div>
+    </table></td>
+    {% if i.append(i.pop()+1) %}
+    {% endif %}
+    {%if i[0]==3 %}
+    {% if i.append(i.pop()-3) %}
+    {% endif %}
+    {%endif%}
+    {%endfor%}
+    <input type="image" src="chatbot.png" width="100" height="100" style="margin-left: 90%;margin-top: 1%;position: relative;" onclick="myFunction()"> 
+  <div id="chat" style="display: none;">
+    <textarea readonly id="txt" style="width: 320px;height: 175px;resize: none;background-color: #ffa500;font-size: larger;padding-top: 5px;padding-left: 5px;padding-right: 5px;padding-bottom: 0px;font-weight: bold;"></textarea>
+    <textarea readonly id="text" style="width: 320px;height: 290px;overflow-y: scroll;resize: none;background-color: #ffa500;font-size: larger;padding-top: 0px;padding-left: 5px;padding-right: 5px;padding-bottom: 5px;"></textarea>    
+    <button type="submit" id="chat_btn" style="margin-left: 2px;margin-top: 4px;" onclick="weather()">WEATHER</button>
+    <button id="chat_btn" onclick="pesticides()">PESTICIDES</button>
+    <button id="chat_btn" onclick="fertilizers()">FERTILIZERS</button><br>
+    <input id="input" autocomplete="off" type="text" placeholder="Type a message" name="name" style="width: 265px;height: 45px;background-color: #ffa500;margin-top:5px;font-weight: bold;font-size: larger;padding: 5px;position: absolute;">
+    <input type="image" src="send.png" width="45" height="45" style="position: relative;margin-left: 270px;margin-top: 5px;" onclick="msg()">
+  </div>
+
+</html>

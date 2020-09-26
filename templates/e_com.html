@@ -1,0 +1,373 @@
+<html>
+<head>
+    <link rel="stylesheet" href="/static/css/css_e_com.css">
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-database.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min. css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-warning navbar-dark justify-content-center">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="homepage.html" target="_self"><text id="nav1">HOME</text></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="fertilizers.html"><text id="nav1">FERTILIZERS</text></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="pesticides.html"><text id="nav1">PESTICIDES</text></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="pestattack.html"><text id="nav1">PEST-ATTACK</text></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="banks.html"><text id="nav1">LOANS</text></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="e_com.html" target="_self"><text id="nav2">E-COM</text></a>
+          </li>
+          <li>
+            <input type="image" src="profile.png" width="50" height="50" style="position: relative;margin-top: 8px;margin-left: 30px;" onclick="profile()"> 
+          </li>
+        </ul>
+      </nav>
+      <button id="btn_back" style="background-color:#0c57a8;position: fixed;height: 40px;bottom:0;left:0;width:8%;margin-left: 15px;margin-bottom: 20px;display: none;border: none;" onclick="refresh()"><text style="font-weight: bold;color: white;">BACK</text></button>
+      <script>
+         function refresh(){
+           location.reload();
+         }
+      </script>
+      <div id="parent" style="position: relative;">
+        <table class="tg" id="t1">
+          {% if data:%}
+	<tr>
+         <th class="tg-0lax">Crop</th>
+         <th class="tg-0lax">Quantity</th>
+         <th class="tg-0lax">Price</th>
+         <th class="tg-0lax">Update</th>
+       </tr>
+	{%endif%}
+       {%for k in data%}
+       <tr>
+        <td>{{k[0]}}</td>
+        <td>{{k[1]}}</td>
+        <td>{{k[2]}}</td>
+        <td><input type="image" src="delete.png" onclick="del(this,{{k[3]}})" height="30" width="30" ></td>
+       </tr>
+       {%endfor%}
+        </table>
+    </div>
+    <div id="prf" style="display: none;">
+        <button id="chat_btn" style="width:100%;font-size: larger;" onclick="location.href='register.html'">UPDATE</button><br>
+        <button id="chat_btn" style="width:100%;margin-top: 5px;font-size: larger;" onclick="location.href='login.html'">SIGN OUT</button>
+      </div>
+      <input type="image" id="order" src="order.png" onclick="fun()" height="100px" weight="100px" style="margin-left: 30px;position: absolute;margin-top: 370px;">
+    <input type="image" id="add" src="add.png" onclick="displ()" height="80px" weight="80px" style="margin-left: 45%;position: relative;margin-top: 20px;">
+    <form method="post" style="display: none;" id="cont">
+        <div class="container">
+          <label for="name">
+              <p style="color:black"><b>Name:</b></p>
+          </label>
+          <input id="name_f" autocomplete="off" style="font-size: large;margin-left: 190px;" type="text" placeholder="Enter Your Name" name="name" required>
+      
+          <label for="num"><p><b>Phone Number:</b></p></label>
+          <input id="num_f" autocomplete="off" style="font-size: large;" type="number" placeholder="Enter Phone Number" name="num" required>
+    
+          <label for="state"><p><b>Region:</b></p></label>
+            <select id="reg_f" name="state" style="width: 60%; height: 55px; border: 2px solid black;margin-left: 170px;">
+              <option value="West Bengal">West Bengal</option>
+              <option value="Punjab">Punjab</option>
+              <option value="Tamil-Nadu">Tamil Nadu</option>
+              <option value="Bihar">Bihar</option>
+              <option value="Maharashtra">Maharashtra</option>
+          </select>
+          <br>
+          <label for="pass" style="margin-top: 0px;"><p><b>Address:</b></p></label>
+          <input id="add_f" autocomplete="off" style="font-size: large;margin-left: 148px;" type="text" placeholder="Enter your address" name="add" required>
+          <br>
+          <label for="crop" ><p><b>Crop:</b></p></label>
+            <select id="crop_f" name="crop" style="width: 60%; height: 55px; border: 2px solid black;margin-left: 204px;">
+              <option value="Rice">Rice</option>
+              <option value="Wheat">Wheat</option>
+              <option value="Maize">Maize</option>
+              <option value="Sugar Cane">Sugar Cane</option>
+              <option value="Jute">Jute</option>
+          </select>
+          <br>
+          <label for="pass" style="margin-top: 0;"><p><b>Quantity(Kgs):</b></p></label>
+          <input id="quan_f" autocomplete="off" style="font-size: large;margin-left: 48px;" type="number" placeholder="Enter the quantity" name="quan" required>
+          <br>
+          <label for="pass" style="margin-top: 0px;"><p><b>Price(Rs):</b></p></label>
+          <input id="pr_f" autocomplete="off" style="font-size: large;margin-left: 131px;" type="number" placeholder="Enter the price" name="pr" required>
+          <br>
+          <label for="pass" style="margin-top: 0px;"><p><b>Description:</b></p></label>
+          <input id="desc_f" autocomplete="off" style="font-size: large;margin-left: 90px;" type="text" height="48" placeholder="Describe your product" name="desc">
+          <br>
+          <button type="submit" formnovalidate id="back" style="margin-left: 60px; margin-top: 30px;"><text style="font-size: medium;"><b>BACK</b></text></button>
+          <button type="submit" onclick="func()" id="register" style="margin-left: 30px;" formaction="JavaScript:void(0)"><text style="font-size: medium;"><b>SUBMIT</b></text></button>
+        </div> 
+        </form>
+      <script>
+        var disp=0,prfnum=0;
+        var div,text,area,x=0,name;
+        function displ(){
+            document.getElementById("cont").style.display="block";
+            document.getElementById("chat_sym").style.marginTop="210px";
+            document.getElementById("chat_sym").style.marginBottom="30px";
+            document.getElementById("chat").style.marginTop="-43%";
+        }
+        function profile(){
+          if(prfnum==0) prfnum=1;
+          else prfnum=0;
+          if(prfnum==1){
+            document.getElementById("prf").style.display="block";
+          }
+          else{
+            document.getElementById("prf").style.display="none";
+          }
+        }
+        function myFunction() {
+        a=document.getElementById("txt");
+        area = document.getElementById("text");
+        if(disp==0) disp=1;
+        else disp=0;
+        if(disp==1){
+          div = document.getElementById("chat").style.display="block";
+          text = "Hello I am your friend Chitty! I am here to help you.\nPress  WEATHER for weather info.\nPress PESTICIDES on pest attack.\nPress FERTILIZERS for related assistance.\n";
+          a.value=text;
+        }
+        else{
+          div = document.getElementById("chat").style.display="none";
+          a.value="";
+          area.value="";
+        }
+      }
+      function weather(){
+        x=1;
+        area.value+="Enter the city below.\n";
+        area.scrollTo(0,outerHeight);
+      }
+      function pesticides(){
+        x=2;
+        area.value+="Enter the pest.\n";
+        area.scrollTo(0,outerHeight);
+      }
+      function fertilizers(){
+        x=3;
+        area.value+="Enter your crop.\n";
+        area.scrollTo(0,outerHeight);
+      }
+      function msg(){
+      var dat = x+" "+document.getElementById("input").value;
+      area.value+=document.getElementById("input").value+"\n";
+      document.getElementById("input").value="";
+      $('button#btn').click(function(){
+        $.ajax({
+            url: "/_get_data",
+            type: "POST",
+            data: dat,
+            success: function(resp){
+                $('div#response').append(resp.data);
+            }
+          });
+        });
+      }
+</script>
+<div id="msg" style="align-self: center;display: none">
+    <text><p style="font-size: xx-large;font-weight: bold;text-align: center;">Your crops have been listed successfully in the market!!!</p></text>
+</div>
+<div id="change" style="align-self: center;display: none">
+  <text><p style="font-size: xx-large;font-weight: bold;text-align: left;">Price(Rs)</p></text>
+  <input type="number" id="change_pr" style="height: 40px;margin-left: 0px;margin-right: 0px;width: 100%;font-size: large;font-weight: bold;"> 
+  <br><br><text><p style="font-size: xx-large;font-weight: bold;text-align: left;">Quantity(Kgs)</p></text>
+  <input type="number" id="change_quan" style="height: 40px;margin-left: 0px;margin-right: 0px;width: 100%;font-size: large;font-weight: bold;">
+  <button id="change_btn" style="background-color: green;margin-left: 36px;"><text style="font-weight: bold;font-size: large;color: white;">UPDATE</text></button>
+  <button id="del_btn" style="background-color: red;margin-left: 5px;"><text style="font-weight: bold;font-size: large;color: white;">REMOVE</text></button> 
+</div>
+<div id="buyers_list" style="display: none;">
+  <text id="t" style="font-weight: bold;font-size: xx-large;text-align: center;margin-left: 30%;"></text>
+</div>
+<script>
+      const firebaseConfig = {
+      apiKey: "AIzaSyBD-aLdVaPaq1TmtaOjXlSNjVrlrBsyoiQ",
+      authDomain: "smartindiahackathon-6a67a.firebaseapp.com",
+      databaseURL: "https://smartindiahackathon-6a67a.firebaseio.com",
+      projectId: "smartindiahackathon-6a67a",
+      storageBucket: "smartindiahackathon-6a67a.appspot.com",
+      messagingSenderId: "21347291671",
+      appId: "1:21347291671:web:a4d7e60db127f448b18252",
+      measurementId: "G-PG3WL35M2J"
+      };
+      firebase.initializeApp(firebaseConfig);
+      var table = document.getElementById("t1");
+      var x = document.getElementById("t1").rows.length;
+      var arr=[],dat,num=0;
+      username = "{{user}}";
+      for(i=1;i<x;i++,num++){
+        arr[num]=(table.children[0].children[i].children[0].innerHTML);
+        const dataRef = firebase.database().ref().child(arr[num]).child(username);
+        dataRef.child("Quantity").on('value', snap =>{
+              dat = snap.val();
+              table.children[0].children[num].children[1].innerHTML=dat;
+              $.getJSON('/updu/'+table.children[0].children[num].children[0].value+" "+dat,function(data){$("#res").text(data.r);})
+        }); 
+      }
+      function func(){
+        name = document.getElementById("name_f").value;
+        crop = document.getElementById("crop_f").value;
+        price = document.getElementById("pr_f").value;
+        quan = document.getElementById("quan_f").value;
+        desc = document.getElementById("desc_f").value;
+        num = document.getElementById("num_f").value;
+        reg = document.getElementById("reg_f").value;
+        add = document.getElementById("add_f").value;
+        if(name.length>0 && price.length>0 && quan.length>0 && add.length>0 && num.length>=10){
+          const db = firebase.database().ref().child(crop).child(username).set({
+              Name: name,
+              User: username,
+              Number: num,
+              Region: reg,
+              Address: add,
+              Quantity: quan,
+              Price: price,
+              Description: desc
+          });
+          document.getElementById("cont").style.display="none";
+          document.getElementById("msg").style.display="block";
+	  $.getJSON('/add/'+crop+" "+quan+" "+price,function(data){$("#res").text(data.r);})
+          setTimeout(location.reload.bind(location),2500);
+        }
+      }
+      function change(o){
+        document.getElementById("chat_sym").style.marginTop="-68px";
+        var p=o.parentNode.parentNode;
+        document.getElementById("change").style.display="block";
+        var inpu = document.getElementById("change_pr");
+        z=(p.children[1].innerHTML);
+        inpu.value=z;
+        inpu = document.getElementById("change_quan");
+        z=(p.children[2].innerHTML);
+        inpu.value=z;
+        $('#change_btn').click(function(){
+          p.children[1].innerHTML=document.getElementById("change_pr").value;
+          p.children[2].innerHTML=document.getElementById("change_quan").value;
+          document.getElementById("change").style.display="none";
+          document.getElementById("chat_sym").style.marginTop="18%";
+          const db = firebase.database().ref().child(p.children[0].innerHTML).child(username).update({
+              Quantity: document.getElementById("change_quan").value,
+              Price: document.getElementById("change_pr").value
+          });
+          $.getJSON('/upd/'+p.children[0].value+" "+document.getElementById("change_quan").value+" "+document.getElementById("change_pr").value,function(data){$("#res").text(data.r);})
+        });
+        $('#del_btn').click(function(){
+	  function del(o,p){
+	$.getJSON('/del/'+p,function(data){$("#res").text(data.r);})
+        var p=o.parentNode.parentNode;
+        p.parentNode.removeChild(p);
+        var x = document.getElementById("t1").rows.length;
+        console.log(x);
+        if(x==1){
+            document.getElementById("t1").style.display="none";
+	document.getElementById("nolisting").value="No Listings on the market! Click + icon to sell.";
+	document.getElementById("nolisting").style.display="block";
+
+        }
+    }
+          p.parentNode.removeChild(p);
+          var x = document.getElementById("t1").rows.length;
+          if(x==1){
+              document.getElementById("t1").style.display="none";
+          }
+          document.getElementById("change").style.display="none";
+          document.getElementById("chat_sym").style.marginTop="18%";
+
+          //deleting from firebase
+          crop=p.children[0].innerHTML;
+          const db = firebase.database().ref().child(crop).child(username).remove();
+        });
+      }
+      function f(snapshot){
+        var arr=[];
+        snapshot.forEach(function(childSnapshot){
+          var item = childSnapshot.val();
+          item.key = childSnapshot.key;
+          arr.push(item);
+        });
+        return arr;
+      }
+      var buyer_id,crop,quan;
+      function fun(){
+        var number;
+        var arr=[];
+        document.getElementById("btn_back").style.display="block";
+        document.getElementById("parent").style.display="none";
+        document.getElementById("order").style.display="none";
+        document.getElementById("add").style.display="none";
+        document.getElementById("chat_sym").style.marginBottom="-20px";
+        document.getElementById("chat").style.marginTop="-40%";
+        const db = firebase.database().ref().child("Seller").child(username).once('value',function (snapshot){
+                 if(snapshot.numChildren()==0){
+                  document.getElementById("buyers_list").style.display="block";  
+                  document.getElementById("t").innerHTML="NO ORDERS AVAILABLE!!!";      
+                 }
+                 snapshot.forEach(function(cropSnapshot){
+                 cropSnapshot.forEach(function(childSnapshot){
+                 buyer_id = childSnapshot.val()['user'];
+                 var add = childSnapshot.val()['address'];
+                 var ph = childSnapshot.val()['phone'];
+                 quan = childSnapshot.val()['quantity'];
+                 crop = childSnapshot.val()['crop'];
+                 var name = childSnapshot.val()['name'];
+                 document.getElementById("buyers_list").style.display="block";
+                 document.getElementById("t1").style.display="none";
+                  var container = document.getElementById("buyers_list");        
+                  var content="";   
+                  content+= '<div class="row">'
+                  content += '<div class="column"><div class="card" style="background-color: #6666ff80;"><div class="textAreaColumn"><div><textarea readonly id="name_txt">'+name+'</textarea></div>'
+                  content += '<div><textarea readonly id="phone_txt">'+ph+'</textarea></div>'
+                  content += '<div><textarea readonly id="add_txt">'+add+'</textarea></div>'
+                  content += '<div><textarea readonly id="phone_txt">Crop: '+crop+'</textarea></div>'
+                  content += '<div><textarea readonly id="phone_txt">Quantity: '+quan+'kg</textarea></div>'
+                  content += '<div><textarea readonly id="phone_txt">Date of order: '+"29 February 2020"+'</textarea></div>'
+                  content += '</div><div><button id="btn" style="background-color:#ff0000" onclick="cancel()"><text style="font-weight: bold;font-color:#ffffff">CANCEL</text></button><button id="btn" style="background-color:#40e000" onclick="delivered()"><text style="font-weight: bold;font-color:#ffffff">DELIVERED</text></button></div></div></div></div>'
+                  container.innerHTML += content;  
+                 });  
+              });
+         });
+  }
+  function cancel(){
+    const db = firebase.database().ref().child("Seller").child(username).child(crop).child(buyer_id).remove();
+    location.reload();
+  }
+  function delivered(){
+    var q;
+    const db = firebase.database().ref().child(crop).child(username).child("Quantity").once('value',function(snapshot){
+         q = Number(snapshot.val())-Number(quan);
+    });
+    console.log(q);
+    const db1 = firebase.database().ref().child(crop).child(username).update({
+       Quantity: q
+    });
+    const db2 = firebase.database().ref().child("Seller").child(username).child(crop).child(buyer_id).remove();
+    location.reload();
+  }
+
+</script>
+  <input type="image" src="chatbot.png" id="chat_sym" width="100" height="100" style="margin-left: 90%;margin-top: 18%;position: relative;" onclick="myFunction()"> 
+  <div id="chat" style="display: none;">
+    <textarea readonly id="txt" style="width: 320px;height: 175px;resize: none;background-color: #ffa500;font-size: larger;padding-top: 5px;padding-left: 5px;padding-right: 5px;padding-bottom: 0px;font-weight: bold;"></textarea>
+    <textarea readonly id="text" style="width: 320px;height: 290px;overflow-y: scroll;resize: none;background-color: #ffa500;font-size: larger;padding-top: 0px;padding-left: 5px;padding-right: 5px;padding-bottom: 5px;"></textarea>
+    <button type="submit" id="chat_btn" style="margin-left: 2px;margin-top: 4px;" onclick="weather()">WEATHER</button>
+    <button id="chat_btn" onclick="pesticides()">PESTICIDES</button>
+    <button id="chat_btn" onclick="fertilizers()">FERTILIZERS</button><br>
+    <input id="input" autocomplete="off" placeholder="Type a message" name="name" style="width: 265px;height: 45px;background-color: #ffa500;margin-top:5px;font-weight: bold;font-size: larger;padding: 5px;position: absolute;">
+    <input type="image" src="send.png" width="45" height="45" style="position: relative;margin-left: 270px;margin-top: 5px;" onclick="msg()">
+  </div>
+</body>
+</html>

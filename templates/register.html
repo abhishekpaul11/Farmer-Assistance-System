@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="static/css/css_register.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<style>
+    body {
+      background-image: url('background.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+</style>
+<form method="post">
+    <div class="container">
+      <label for="name">
+          <p style="color:black"><b>Username</b></p>
+      </label>
+      <input style="font-size: large;" type="text" placeholder="Enter Username" name="user" required>
+  
+      <label for="num"><p><b>Phone Number</b></p></label>
+      <input style="font-size: large;" type="text" placeholder="Enter Phone Number" name="num" required>
+
+      <label for="pass"><p><b>Password</b></p></label>
+      <input style="font-size: large;" type="text" placeholder="Enter Password" name="pass" required>
+
+      <label for="lang"><p><b>Language</b></p></label>
+      <br>
+      <div class="radio-toolbar">
+        <input type="radio" name="lang" id="radioEnglish" value="English">
+        <label for="radioEnglish">English</label>
+    
+        <input type="radio" name="lang" id="radioHindi" value="Hindi">
+        <label style="margin-left: 30px;" for="radioHindi">Hindi</label>
+    
+        <input type="radio" name="lang" id="radioBengali" value="Bengali">
+        <label style="margin-left: 30px;" for="radioBengali">Bengali</label> 
+
+        <input type="radio" name="lang" id="radioPunjabi" value="Punjabi">
+        <label style="margin-left: 30px;" for="radioPunjabi">Punjabi</label> 
+
+        <input type="radio" name="lang" id="radioTamil" value="Tamil">
+        <label style="margin-left: 30px;" for="radioTamil">Tamil</label> 
+      </div>
+
+      <label for="state" style="margin-top: 20px;"><p><b>State</b></p></label>
+        <select name="state" style="width: 100%; height: 55px; border: 2px solid black;">
+          <option value="West Bengal">West Bengal</option>
+          <option value="Punjab">Punjab</option>
+          <option value="Tamil-Nadu">Tamil Nadu</option>
+          <option value="Bihar">Bihar</option>
+          <option value="Maharashtra">Maharashtra</option>
+      </select>
+      
+      <label for="crop" style="margin-top: 40px;"><p><b>Crop</b></p></label><br>
+      <ul class="list-inline">
+        <li>
+        <input name="crop" class="styled-checkbox" id="styled-checkbox-1" type="checkbox" value="Rice">
+        <label for="styled-checkbox-1"><p style="font-size: 30px;">Rice</p></label></li>
+        <li style="margin-left: 20%;">
+        <input name="crop" class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="Maize">
+        <label name="crop" for="styled-checkbox-2"><p style="font-size: 30px;" style="margin-left: 30px;">Maize</p></label></li>
+        <li style="margin-left: 40%;">
+          <input name="crop" class="styled-checkbox" id="styled-checkbox-3" type="checkbox" value="Wheat">
+          <label for="styled-checkbox-3"><p style="font-size: 30px;">Wheat</p></label></li>
+        <li style="margin-left: 60%;">
+          <input name="crop" class="styled-checkbox" id="styled-checkbox-4" type="checkbox" value="Sugar Cane">
+          <label for="styled-checkbox-4"><p style="font-size: 30px;">Sugar Cane</p></label></li>
+        <li style="margin-left: 80%;">
+          <input name="crop" class="styled-checkbox" id="styled-checkbox-5" type="checkbox" value="Jute">
+          <label for="styled-checkbox-5"><p style="font-size: 30px;">Jute</p></label></li>
+    
+      <br><br><br>
+      <button type="submit" formnovalidate id="back" style="margin-left: 80px; margin-top: 60px;" formaction="/"><text style="font-size: medium;"><b>BACK</b></text></button>
+      <button type="submit" id="register" style="margin-left: 30px;"><text style="font-size: medium;"><b>REGISTER</b></text></button>
+    </div>
+</form>
+</html>
